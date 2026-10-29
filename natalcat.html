@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#8E2430">
+
 <title>JLP 3D | Catálogo de Natal</title>
 
 <style>
@@ -563,7 +564,7 @@ function linkWhatsApp(mensagem) {
 }
 
 // =============================================
-// PRODUTOS JÁ EXISTENTES
+// PRODUTOS INDIVIDUAIS
 // =============================================
 
 const produtos = [
@@ -690,12 +691,34 @@ const produtos = [
             ["1 unidade", 19.90],
             ["Kit com 3", 41.90]
         ]
+    },
+
+    // NOVO PRODUTO — PRESÉPIO NATALINO
+
+    {
+        id: "presepio-natalino",
+        nome: "Presépio Natalino",
+        descricao:
+            "Um presépio especial para celebrar a magia " +
+            "e o verdadeiro significado do Natal. " +
+            "Com acabamento em uma única cor, " +
+            "é uma peça elegante para sua decoração.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Cor", "Única"],
+            ["Estilo", "Natalino"]
+        ],
+        imagens: [
+            "Presépio Natalino à Luz de Velas.png"
+        ],
+        opcoes: [
+            ["1 conjunto", 49.90]
+        ]
     }
 ];
 
 // =============================================
-// NOVOS KITS NATALINOS
-// NOMES REAIS DAS IMAGENS
+// KITS NATALINOS
 // =============================================
 
 const kits = [
@@ -771,7 +794,7 @@ const kits = [
 ];
 
 // =============================================
-// CRIAR ANÚNCIOS DOS PRODUTOS ANTIGOS
+// CRIAR ANÚNCIOS DOS PRODUTOS
 // =============================================
 
 function criarProduto(produto) {
@@ -864,6 +887,17 @@ function criarProduto(produto) {
     const preco = artigo.querySelector(".preco");
     const botao = artigo.querySelector(".botao-interesse");
 
+    const setaEsquerda =
+        artigo.querySelector(".seta-esquerda");
+
+    const setaDireita =
+        artigo.querySelector(".seta-direita");
+
+    if (produto.imagens.length === 1) {
+        setaEsquerda.style.display = "none";
+        setaDireita.style.display = "none";
+    }
+
     function atualizarImagem() {
         imagem.src =
             pastaFotos + produto.imagens[imagemAtual];
@@ -876,23 +910,21 @@ function criarProduto(produto) {
             `).join("");
     }
 
-    artigo.querySelector(".seta-esquerda")
-        .addEventListener("click", () => {
-            imagemAtual =
-                (imagemAtual - 1 + produto.imagens.length)
-                % produto.imagens.length;
+    setaEsquerda.addEventListener("click", () => {
+        imagemAtual =
+            (imagemAtual - 1 + produto.imagens.length)
+            % produto.imagens.length;
 
-            atualizarImagem();
-        });
+        atualizarImagem();
+    });
 
-    artigo.querySelector(".seta-direita")
-        .addEventListener("click", () => {
-            imagemAtual =
-                (imagemAtual + 1)
-                % produto.imagens.length;
+    setaDireita.addEventListener("click", () => {
+        imagemAtual =
+            (imagemAtual + 1)
+            % produto.imagens.length;
 
-            atualizarImagem();
-        });
+        atualizarImagem();
+    });
 
     function atualizarOpcao() {
         const opcao = produto.opcoes[opcaoAtual];
@@ -935,7 +967,7 @@ function criarProduto(produto) {
 }
 
 // =============================================
-// CRIAR ANÚNCIOS DOS CINCO KITS
+// CRIAR ANÚNCIOS DOS KITS
 // =============================================
 
 function criarKit(kit) {
@@ -1023,10 +1055,10 @@ function criarKit(kit) {
 }
 
 // =============================================
-// EXIBIR PRODUTOS E KITS EM ORDEM DE PREÇO
+// EXIBIR PRODUTOS E KITS
 // =============================================
 
-// Produtos antigos: menor preço inicial primeiro.
+// Produtos individuais em ordem de preço.
 
 const produtosOrdenados = [...produtos].sort(
     (a, b) => a.opcoes[0][1] - b.opcoes[0][1]
@@ -1039,7 +1071,7 @@ produtosOrdenados.forEach(produto => {
     areaProdutos.appendChild(criarProduto(produto));
 });
 
-// Kits novos: menor preço primeiro.
+// Kits natalinos em ordem crescente de preço.
 
 const kitsOrdenados = [...kits].sort(
     (a, b) => a.preco - b.preco
