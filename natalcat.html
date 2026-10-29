@@ -1,2055 +1,1058 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>JLP 3D | Catálogo de Natal</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --vermelho: #8E2430;
-            --vermelho-escuro: #681923;
-            --vermelho-hover: #A52B39;
-            --dourado: #C9A45C;
-            --creme: #F7F3EC;
-            --cinza: #666;
-        }
-
-        body {
-            font-family: Georgia, "Times New Roman", serif;
-            background: var(--creme);
-            color: #222;
-        }
-
-        /* =========================
-           CABEÇALHO
-        ========================= */
-
-        header {
-            background: var(--vermelho);
-            color: white;
-            text-align: center;
-            padding: 25px 20px 22px;
-            border-bottom: 2px solid var(--dourado);
-        }
-
-        .marca h1 {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 38px;
-            letter-spacing: 4px;
-        }
-
-        .marca h1 span {
-            color: #E5CA8B;
-        }
-
-        .linha-dourada {
-            width: 55px;
-            height: 2px;
-            background: var(--dourado);
-            margin: 9px auto;
-        }
-
-        .marca p {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #eee5d7;
-        }
-
-        /* =========================
-           CONTEÚDO
-        ========================= */
-
-        main {
-            max-width: 1150px;
-            margin: auto;
-            padding: 38px 22px 60px;
-        }
-
-        .apresentacao {
-            max-width: 750px;
-            margin: 0 auto 35px;
-            text-align: center;
-        }
-
-        .pequeno-titulo {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--vermelho);
-            margin-bottom: 8px;
-        }
-
-        .apresentacao h2 {
-            font-size: 31px;
-            color: var(--vermelho-escuro);
-            margin-bottom: 12px;
-        }
-
-        .apresentacao h2 span {
-            color: var(--vermelho);
-        }
-
-        .apresentacao p {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--cinza);
-        }
-
-        /* =========================
-           DIVISOR
-        ========================= */
-
-        .divisor {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 32px;
-        }
-
-        .divisor::before,
-        .divisor::after {
-            content: "";
-            width: 55px;
-            height: 1px;
-            background: var(--dourado);
-        }
-
-        .divisor span {
-            width: 6px;
-            height: 6px;
-            background: var(--dourado);
-            transform: rotate(45deg);
-        }
-
-        /* =========================
-           TÍTULO
-        ========================= */
-
-        .titulo-produtos {
-            text-align: center;
-            margin-bottom: 22px;
-        }
-
-        .titulo-produtos h3 {
-            font-size: 24px;
-            color: var(--vermelho-escuro);
-            margin-bottom: 5px;
-        }
-
-        .titulo-produtos p {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            color: #777;
-        }
-
-        /* =========================
-           GRID
-        ========================= */
-
-        .produtos {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 22px;
-            align-items: stretch;
-        }
-
-        /* =========================
-           CARD
-        ========================= */
-
-        .produto {
-            background: white;
-            border: 1px solid rgba(201, 164, 92, 0.35);
-            border-radius: 18px;
-            padding: 12px;
-            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* =========================
-           CARROSSEL
-        ========================= */
-
-        .carrossel {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1 / 0.85;
-            border-radius: 14px;
-            overflow: hidden;
-            background: white;
-            border: 1px solid #eee;
-        }
-
-        .carrossel img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-
-        .seta {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 32px;
-            height: 32px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.92);
-            color: var(--vermelho);
-            font-size: 21px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 7px rgba(0,0,0,0.14);
-            z-index: 5;
-        }
-
-        .seta:hover {
-            background: var(--vermelho);
-            color: white;
-        }
-
-        .seta-esquerda {
-            left: 8px;
-        }
-
-        .seta-direita {
-            right: 8px;
-        }
-
-        /* =========================
-           INDICADORES
-        ========================= */
-
-        .indicadores {
-            position: absolute;
-            bottom: 8px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 5px;
-        }
-
-        .indicador {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.8);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .indicador.ativo {
-            background: var(--vermelho);
-        }
-
-        /* =========================
-           INFORMAÇÕES
-        ========================= */
-
-        .produto-info {
-            padding: 14px 5px 3px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-
-        .produto-info h4 {
-            font-size: 20px;
-            color: var(--vermelho-escuro);
-            text-align: center;
-            margin-bottom: 7px;
-        }
-
-        .produto-descricao {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            line-height: 1.5;
-            color: #666;
-            text-align: center;
-            margin-bottom: 12px;
-        }
-
-        /* =========================
-           DETALHES
-        ========================= */
-
-        .detalhes {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 13px;
-        }
-
-        .detalhe {
-            background: #faf8f3;
-            border: 1px solid #e6dfd2;
-            border-radius: 8px;
-            padding: 6px 9px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 10px;
-            color: #555;
-            text-align: center;
-        }
-
-        .detalhe strong {
-            display: block;
-            color: var(--vermelho-escuro);
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: .5px;
-            margin-bottom: 2px;
-        }
-
-        /* =========================
-           PREÇO
-        ========================= */
-
-        .preco {
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 24px;
-            font-weight: 800;
-            color: #111;
-            margin: 3px 0 12px;
-        }
-
-        /* =========================
-           OPÇÕES
-        ========================= */
-
-        .titulo-opcoes {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 6px;
-        }
-
-        .opcoes {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .opcao {
-            width: 100%;
-            min-height: 38px;
-            padding: 7px 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            transition: .2s ease;
-        }
-
-        .opcao:hover {
-            border-color: var(--vermelho);
-        }
-
-        .opcao.ativo {
-            border: 2px solid var(--vermelho);
-            background: #fff8f8;
-        }
-
-        .opcao-esquerda {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-weight: 700;
-        }
-
-        .radio {
-            width: 13px;
-            height: 13px;
-            border: 1px solid #888;
-            border-radius: 50%;
-            position: relative;
-            flex-shrink: 0;
-        }
-
-        .opcao.ativo .radio {
-            border-color: var(--vermelho);
-        }
-
-        .opcao.ativo .radio::after {
-            content: "";
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--vermelho);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .opcao-preco {
-            font-weight: 800;
-            color: #111;
-            text-align: right;
-        }
-
-        /* =========================
-           BOTÃO
-        ========================= */
-
-        .botao-interesse {
-            width: 100%;
-            min-height: 40px;
-            border: none;
-            border-radius: 9px;
-            background: var(--vermelho);
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: auto;
-            transition: .2s ease;
-        }
-
-        .botao-interesse:hover {
-            background: var(--vermelho-hover);
-        }
-
-        /* =========================
-           RODAPÉ
-        ========================= */
-
-        footer {
-            background: var(--vermelho);
-            color: white;
-            text-align: center;
-            padding: 22px 15px;
-            border-top: 2px solid var(--dourado);
-        }
-
-        footer strong {
-            color: #E5CA8B;
-        }
-
-        footer p {
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
-            letter-spacing: 1px;
-            color: #ddd;
-        }
-
-        /* =========================
-           RESPONSIVO
-        ========================= */
-
-        @media (max-width: 900px) {
-
-            .produtos {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-        }
-
-        @media (max-width: 600px) {
-
-            .marca h1 {
-                font-size: 32px;
-            }
-
-            .apresentacao h2 {
-                font-size: 27px;
-            }
-
-            main {
-                padding: 32px 15px 50px;
-            }
-
-            .produtos {
-                grid-template-columns: 1fr;
-            }
-
-            .produto {
-                max-width: 420px;
-                width: 100%;
-                margin: auto;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#8E2430">
+<title>JLP 3D | Catálogo de Natal</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --vermelho: #8E2430;
+    --vermelho-escuro: #681923;
+    --vermelho-hover: #A52B39;
+    --dourado: #C9A45C;
+    --creme: #F7F3EC;
+    --cinza: #666;
+}
+
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    background: var(--creme);
+    color: #222;
+}
+
+header {
+    background: var(--vermelho);
+    color: white;
+    text-align: center;
+    padding: 28px 20px 24px;
+    border-bottom: 2px solid var(--dourado);
+}
+
+.marca h1 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 38px;
+    letter-spacing: 4px;
+}
+
+.marca h1 span {
+    color: #E5CA8B;
+}
+
+.linha-dourada {
+    width: 55px;
+    height: 2px;
+    background: var(--dourado);
+    margin: 10px auto;
+}
+
+.marca p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #eee5d7;
+}
+
+main {
+    max-width: 1150px;
+    margin: auto;
+    padding: 38px 22px 60px;
+}
+
+.apresentacao {
+    max-width: 750px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.pequeno-titulo {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--vermelho);
+    margin-bottom: 8px;
+}
+
+.apresentacao h2 {
+    font-size: 31px;
+    color: var(--vermelho-escuro);
+    margin-bottom: 12px;
+}
+
+.apresentacao h2 span {
+    color: var(--vermelho);
+}
+
+.apresentacao p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--cinza);
+}
+
+.divisor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 36px auto;
+}
+
+.divisor::before,
+.divisor::after {
+    content: "";
+    width: 55px;
+    height: 1px;
+    background: var(--dourado);
+}
+
+.divisor span {
+    width: 6px;
+    height: 6px;
+    background: var(--dourado);
+    transform: rotate(45deg);
+}
+
+.titulo-produtos {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.titulo-produtos h3 {
+    font-size: 25px;
+    color: var(--vermelho-escuro);
+    margin-bottom: 7px;
+}
+
+.titulo-produtos p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #777;
+}
+
+.produtos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    align-items: stretch;
+}
+
+.produto {
+    background: white;
+    border: 1px solid rgba(201, 164, 92, .35);
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 7px 20px rgba(0, 0, 0, .06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.carrossel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / .85;
+    border-radius: 14px;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #eee;
+}
+
+.carrossel img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .94);
+    color: var(--vermelho);
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .14);
+    z-index: 2;
+}
+
+.seta:hover {
+    background: var(--vermelho);
+    color: white;
+}
+
+.seta-esquerda {
+    left: 8px;
+}
+
+.seta-direita {
+    right: 8px;
+}
+
+.indicadores {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 5px;
+}
+
+.indicador {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .85);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+
+.indicador.ativo {
+    background: var(--vermelho);
+}
+
+.produto-info {
+    padding: 14px 5px 3px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.produto-info h4 {
+    font-size: 20px;
+    color: var(--vermelho-escuro);
+    text-align: center;
+    margin-bottom: 9px;
+}
+
+.produto-descricao {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #666;
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+.detalhes {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 13px;
+}
+
+.detalhe {
+    background: #faf8f3;
+    border: 1px solid #e6dfd2;
+    border-radius: 8px;
+    padding: 7px 9px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #555;
+    text-align: center;
+}
+
+.detalhe strong {
+    display: block;
+    color: var(--vermelho-escuro);
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    margin-bottom: 3px;
+}
+
+.preco {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+    color: #111;
+    margin: 5px 0 14px;
+}
+
+.titulo-opcoes {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 15px;
+}
+
+.opcao {
+    width: 100%;
+    min-height: 39px;
+    padding: 9px 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-align: left;
+}
+
+.opcao:hover {
+    border-color: var(--vermelho);
+}
+
+.opcao.ativo {
+    border: 2px solid var(--vermelho);
+    background: #fff8f8;
+}
+
+.opcao-esquerda {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-weight: 700;
+}
+
+.radio {
+    width: 13px;
+    height: 13px;
+    border: 1px solid #888;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.opcao.ativo .radio {
+    border: 4px solid var(--vermelho);
+}
+
+.opcao-preco {
+    font-weight: 800;
+    color: #111;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.botao-interesse {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px;
+    border: none;
+    border-radius: 9px;
+    background: var(--vermelho);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    transition: background .2s ease;
+}
+
+.botao-interesse:hover {
+    background: var(--vermelho-hover);
+}
+
+.secao-kits {
+    margin-top: 8px;
+}
+
+.kit-foto {
+    width: 100%;
+    aspect-ratio: 1 / .85;
+    object-fit: contain;
+    border-radius: 14px;
+    display: block;
+    background: #faf8f3;
+    border: 1px solid #eee;
+}
+
+.kit-ordem {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--vermelho);
+    margin-bottom: 8px;
+}
+
+.kit-composicao {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.65;
+    color: #555;
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+.kit-aviso {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #806d52;
+    text-align: center;
+    margin-bottom: 13px;
+}
+
+footer {
+    background: var(--vermelho);
+    color: white;
+    text-align: center;
+    padding: 24px 15px;
+    border-top: 2px solid var(--dourado);
+}
+
+footer p {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #ddd;
+}
+
+footer strong {
+    color: #E5CA8B;
+}
+
+@media (max-width: 900px) {
+    .produtos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .marca h1 {
+        font-size: 32px;
+    }
+
+    .apresentacao h2 {
+        font-size: 27px;
+    }
+
+    main {
+        padding: 32px 15px 50px;
+    }
+
+    .produtos {
+        grid-template-columns: 1fr;
+    }
+
+    .produto {
+        max-width: 420px;
+        width: 100%;
+        margin: auto;
+    }
+}
+</style>
 </head>
-
 
 <body>
 
-
 <header>
-
     <div class="marca">
-
-        <h1>
-            JLP <span>3D</span>
-        </h1>
-
+        <h1>JLP <span>3D</span></h1>
         <div class="linha-dourada"></div>
-
-        <p>
-            Catálogo de Natal
-        </p>
-
+        <p>Catálogo de Natal</p>
     </div>
-
 </header>
-
 
 <main>
 
-
-    <section class="apresentacao">
-
-        <div class="pequeno-titulo">
-            Especial de Natal
-        </div>
-
-        <h2>
-            Um Natal feito para
-            <span>encantar</span>
-        </h2>
-
-        <p>
-            Nós, da JLP, sabemos o quão mágica e linda é
-            a época do Natal. 🎄 Pensando nisso, lançamos
-            em nossa loja uma seleção especial de produtos
-            que relembram a magia dessa época e procuram
-            trazer ainda mais beleza e encanto natalino
-            para a sua casa. 🎅
-        </p>
-
-    </section>
-
-
-    <div class="divisor">
-        <span></span>
+<section class="apresentacao">
+    <div class="pequeno-titulo">
+        Especial de Natal
     </div>
 
-
-    <section>
-
-        <div class="titulo-produtos">
-
-            <h3>
-                Nossa coleção de Natal
-            </h3>
-
-            <p>
-                Escolha seu produto e a quantidade desejada.
-            </p>
-
-        </div>
-
-
-        <!-- =================================================
-             TODOS OS PRODUTOS FICAM DENTRO DESTA GRADE
-        ================================================= -->
-
-        <div class="produtos">
-
-
-            <!-- =================================================
-                 RENA NATALINA
-            ================================================= -->
-
-            <article class="produto">
-
-                <div class="carrossel">
-
-                    <img
-                        id="imagemRena"
-                        src="Fotos shopee/4renas.png"
-                        alt="Rena Natalina"
-                    >
-
-                    <button
-                        class="seta seta-esquerda"
-                        onclick="mudarImagem('Rena', -1)"
-                    >
-                        ‹
-                    </button>
-
-                    <button
-                        class="seta seta-direita"
-                        onclick="mudarImagem('Rena', 1)"
-                    >
-                        ›
-                    </button>
-
-                    <div
-                        class="indicadores"
-                        id="indicadoresRena"
-                    ></div>
-
-                </div>
-
-
-                <div class="produto-info">
-
-                    <h4>
-                        Rena Natalina
-                    </h4>
-
-                    <p class="produto-descricao">
-                        Uma peça delicada para trazer o clima
-                        natalino à sua decoração. Disponível em
-                        diferentes cores para você escolher a que
-                        mais combina com seu ambiente.
-                    </p>
-
-
-                    <div class="detalhes">
-
-                        <div class="detalhe">
-                            <strong>Material</strong>
-                            PLA
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Altura</strong>
-                            13,48 cm
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Cores</strong>
-                            Diversas opções
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="preco"
-                        id="precoRena"
-                    >
-                        R$ 14,90
-                    </div>
-
-
-                    <div class="titulo-opcoes">
-                        Escolha sua opção:
-                    </div>
-
-
-                    <div class="opcoes">
-
-                        <div
-                            class="opcao ativo"
-                            onclick="selecionarRena(0)"
-                            id="renaOpcao0"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 14,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarRena(1)"
-                            id="renaOpcao1"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit com 2</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 27,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarRena(2)"
-                            id="renaOpcao2"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit com 3</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 39,90
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <a
-                        class="botao-interesse"
-                        id="botaoRena"
-                        href="#"
-                        target="_blank"
-                    >
-                        Tenho interesse
-                    </a>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- =================================================
-                 PORTA GUARDANAPOS NATALINO
-            ================================================= -->
-
-            <article class="produto">
-
-                <div class="carrossel">
-
-                    <img
-                        id="imagemGuardanapo"
-                        src="Fotos shopee/guardanapocompapel.png"
-                        alt="Porta Guardanapos Natalino"
-                    >
-
-                    <button
-                        class="seta seta-esquerda"
-                        onclick="mudarImagem('Guardanapo', -1)"
-                    >
-                        ‹
-                    </button>
-
-                    <button
-                        class="seta seta-direita"
-                        onclick="mudarImagem('Guardanapo', 1)"
-                    >
-                        ›
-                    </button>
-
-                    <div
-                        class="indicadores"
-                        id="indicadoresGuardanapo"
-                    ></div>
-
-                </div>
-
-
-                <div class="produto-info">
-
-                    <h4>
-                        Porta Guardanapos Natalino
-                    </h4>
-
-                    <p class="produto-descricao">
-                        Um detalhe especial para deixar sua mesa
-                        ainda mais bonita neste Natal. Disponível
-                        em diferentes cores para combinar com
-                        sua decoração.
-                    </p>
-
-
-                    <div class="detalhes">
-
-                        <div class="detalhe">
-                            <strong>Material</strong>
-                            PLA
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Altura</strong>
-                            10 cm
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Cores</strong>
-                            Diversas opções
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="preco"
-                        id="precoGuardanapo"
-                    >
-                        R$ 12,90
-                    </div>
-
-
-                    <div class="titulo-opcoes">
-                        Escolha sua opção:
-                    </div>
-
-
-                    <div class="opcoes">
-
-                        <div
-                            class="opcao ativo"
-                            onclick="selecionarGuardanapo(0)"
-                            id="guardanapoOpcao0"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 12,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarGuardanapo(1)"
-                            id="guardanapoOpcao1"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit com 2</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 22,90
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <a
-                        class="botao-interesse"
-                        id="botaoGuardanapo"
-                        href="#"
-                        target="_blank"
-                    >
-                        Tenho interesse
-                    </a>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- =================================================
-                 QUEBRA-NOZES
-            ================================================= -->
-
-            <article class="produto">
-
-                <div class="carrossel">
-
-                    <img
-                        id="imagemQuebraNozes"
-                        src="Fotos shopee/quebravermelho.png"
-                        alt="Boneco Quebra-Nozes"
-                    >
-
-                    <button
-                        class="seta seta-esquerda"
-                        onclick="mudarImagem('QuebraNozes', -1)"
-                    >
-                        ‹
-                    </button>
-
-                    <button
-                        class="seta seta-direita"
-                        onclick="mudarImagem('QuebraNozes', 1)"
-                    >
-                        ›
-                    </button>
-
-                    <div
-                        class="indicadores"
-                        id="indicadoresQuebraNozes"
-                    ></div>
-
-                </div>
-
-
-                <div class="produto-info">
-
-                    <h4>
-                        Boneco Quebra-Nozes
-                    </h4>
-
-                    <p class="produto-descricao">
-                        Um clássico que não pode faltar na
-                        decoração de Natal. O Quebra-Nozes
-                        traz aquele toque tradicional e elegante
-                        para deixar seu ambiente ainda mais
-                        especial nessa época do ano.
-                    </p>
-
-
-                    <div class="detalhes">
-
-                        <div class="detalhe">
-                            <strong>Material</strong>
-                            PLA
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Altura</strong>
-                            20 cm
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Cores</strong>
-                            Diversas opções
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="preco"
-                        id="precoQuebraNozes"
-                    >
-                        R$ 24,90
-                    </div>
-
-
-                    <div class="titulo-opcoes">
-                        Escolha sua opção:
-                    </div>
-
-
-                    <div class="opcoes">
-
-                        <div
-                            class="opcao ativo"
-                            onclick="selecionarQuebraNozes(0)"
-                            id="quebraNozesOpcao0"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 24,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarQuebraNozes(1)"
-                            id="quebraNozesOpcao1"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit com 2</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 44,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarQuebraNozes(2)"
-                            id="quebraNozesOpcao2"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit com 3</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 59,90
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <a
-                        class="botao-interesse"
-                        id="botaoQuebraNozes"
-                        href="#"
-                        target="_blank"
-                    >
-                        Tenho interesse
-                    </a>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- =================================================
-                 PORTA GUARDANAPOS
-            ================================================= -->
-
-            <article class="produto">
-
-                <div class="carrossel">
-
-                    <img
-                        id="imagemPorta"
-                        src="Fotos shopee/capaportanatal.png"
-                        alt="Porta Guardanapos de Natal"
-                    >
-
-                    <button
-                        class="seta seta-esquerda"
-                        onclick="mudarImagem('Porta', -1)"
-                    >
-                        ‹
-                    </button>
-
-                    <button
-                        class="seta seta-direita"
-                        onclick="mudarImagem('Porta', 1)"
-                    >
-                        ›
-                    </button>
-
-                    <div
-                        class="indicadores"
-                        id="indicadoresPorta"
-                    ></div>
-
-                </div>
-
-
-                <div class="produto-info">
-
-                    <h4>
-                        Porta Guardanapos
-                    </h4>
-
-                    <p class="produto-descricao">
-                        Prendedores estilizados para segurar os
-                        guardanapos, deixando sua mesa mais bonita,
-                        organizada e com um toque especial de Natal.
-                    </p>
-
-
-                    <div class="detalhes">
-
-                        <div class="detalhe">
-                            <strong>Material</strong>
-                            PLA
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Modelos</strong>
-                            3 opções
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Estilo</strong>
-                            Natalino
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="preco"
-                        id="precoPorta"
-                    >
-                        R$ 12,90
-                    </div>
-
-
-                    <div class="titulo-opcoes">
-                        Escolha sua opção:
-                    </div>
-
-
-                    <div class="opcoes">
-
-                        <div
-                            class="opcao ativo"
-                            onclick="selecionarPorta(0)"
-                            id="portaOpcao0"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Papai Noel — 1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 12,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarPorta(1)"
-                            id="portaOpcao1"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Papai Noel — Kit com 4</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 44,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarPorta(2)"
-                            id="portaOpcao2"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Presente — 1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 12,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarPorta(3)"
-                            id="portaOpcao3"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Presente — Kit com 4</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 44,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarPorta(4)"
-                            id="portaOpcao4"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Rena — 1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 14,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarPorta(5)"
-                            id="portaOpcao5"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Rena — Kit com 4</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 49,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarPorta(6)"
-                            id="portaOpcao6"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit Natalino</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 34,90
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <a
-                        class="botao-interesse"
-                        id="botaoPorta"
-                        href="#"
-                        target="_blank"
-                    >
-                        Tenho interesse
-                    </a>
-
-                </div>
-
-            </article>
-
-
-
-            <!-- =================================================
-                 MINIATURA DE ÁRVORE
-                 NOVO PRODUTO
-            ================================================= -->
-
-            <article class="produto">
-
-                <div class="carrossel">
-
-                    <img
-                        id="imagemArvore"
-                        src="Fotos shopee/capaarvore.png"
-                        alt="Miniatura de árvore de Natal"
-                    >
-
-                    <button
-                        class="seta seta-esquerda"
-                        onclick="mudarImagem('Arvore', -1)"
-                    >
-                        ‹
-                    </button>
-
-                    <button
-                        class="seta seta-direita"
-                        onclick="mudarImagem('Arvore', 1)"
-                    >
-                        ›
-                    </button>
-
-                    <div
-                        class="indicadores"
-                        id="indicadoresArvore"
-                    ></div>
-
-                </div>
-
-
-                <div class="produto-info">
-
-                    <h4>
-                        Miniatura de árvore
-                    </h4>
-
-                    <p class="produto-descricao">
-                        Uma delicada miniatura de árvore de Natal
-                        para deixar sua decoração ainda mais charmosa.
-                        Uma peça compacta e especial para trazer o
-                        clima natalino para qualquer cantinho.
-                    </p>
-
-
-                    <div class="detalhes">
-
-                        <div class="detalhe">
-                            <strong>Material</strong>
-                            PLA
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Altura</strong>
-                            15 cm
-                        </div>
-
-                        <div class="detalhe">
-                            <strong>Cores</strong>
-                            Diversas opções
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        class="preco"
-                        id="precoArvore"
-                    >
-                        R$ 19,90
-                    </div>
-
-
-                    <div class="titulo-opcoes">
-                        Escolha sua opção:
-                    </div>
-
-
-                    <div class="opcoes">
-
-                        <div
-                            class="opcao ativo"
-                            onclick="selecionarArvore(0)"
-                            id="arvoreOpcao0"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>1 unidade</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 19,90
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="opcao"
-                            onclick="selecionarArvore(1)"
-                            id="arvoreOpcao1"
-                        >
-
-                            <div class="opcao-esquerda">
-                                <span class="radio"></span>
-                                <span>Kit com 3</span>
-                            </div>
-
-                            <span class="opcao-preco">
-                                R$ 41,90
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <a
-                        class="botao-interesse"
-                        id="botaoArvore"
-                        href="#"
-                        target="_blank"
-                    >
-                        Tenho interesse
-                    </a>
-
-                </div>
-
-            </article>
-
-
-        </div>
-
-    </section>
-
+    <h2>
+        Um Natal feito para <span>encantar</span>
+    </h2>
+
+    <p>
+        Nós, da JLP, sabemos o quão mágica e linda é
+        a época do Natal. 🎄 Pensando nisso, lançamos
+        em nossa loja uma seleção especial de produtos
+        que relembram a magia dessa época e procuram
+        trazer ainda mais beleza e encanto natalino
+        para a sua casa. 🎅
+    </p>
+</section>
+
+<div class="divisor"><span></span></div>
+
+<section>
+    <div class="titulo-produtos">
+        <h3>Nossa coleção de Natal</h3>
+        <p>
+            Escolha seu produto e a quantidade desejada.
+        </p>
+    </div>
+
+    <div class="produtos" id="produtosAntigos"></div>
+</section>
+
+<div class="divisor"><span></span></div>
+
+<section class="secao-kits">
+    <div class="titulo-produtos">
+        <h3>Kits Natalinos JLP 3D</h3>
+        <p>
+            Combinações especiais para sua decoração.
+            Do menor para o maior preço.
+        </p>
+    </div>
+
+    <div class="produtos" id="kitsNatalinos"></div>
+</section>
 
 </main>
 
-
 <footer>
-
     <p>
-
-        <strong>
-            JLP 3D
-        </strong>
-
+        <strong>JLP 3D</strong>
         — Planeje • Imprima • Evolua
-
     </p>
-
 </footer>
-
-
 
 <script>
 
-    /* =====================================================
-       WHATSAPP
-    ===================================================== */
-
-    const telefone = "5511984458652";
-
-
-    /* =====================================================
-       RENA NATALINA
-    ===================================================== */
-
-    const imagensRena = [
-        "Fotos shopee/4renas.png",
-        "Fotos shopee/renavermelha.png",
-        "Fotos shopee/renaverde.png",
-        "Fotos shopee/renabege.png",
-        "Fotos shopee/renabranca.png"
-    ];
-
-    let imagemAtualRena = 0;
-    let opcaoRena = 0;
-
-    const precosRena = [
-        "R$ 14,90",
-        "R$ 27,90",
-        "R$ 39,90"
-    ];
-
-    const nomesRena = [
-        "1 unidade",
-        "Kit com 2",
-        "Kit com 3"
-    ];
-
-
-    /* =====================================================
-       PORTA GUARDANAPOS NATALINO
-    ===================================================== */
-
-    const imagensGuardanapo = [
-        "Fotos shopee/guardanapocompapel.png",
-        "Fotos shopee/guardanapovermelho.png",
-        "Fotos shopee/guardanapoverde.png",
-        "Fotos shopee/guardanapobranco.png"
-    ];
-
-    let imagemAtualGuardanapo = 0;
-    let opcaoGuardanapo = 0;
-
-    const precosGuardanapo = [
-        "R$ 12,90",
-        "R$ 22,90"
-    ];
-
-    const nomesGuardanapo = [
-        "1 unidade",
-        "Kit com 2"
-    ];
-
-
-    /* =====================================================
-       QUEBRA-NOZES
-    ===================================================== */
-
-    const imagensQuebraNozes = [
-        "Fotos shopee/quebravermelho.png",
-        "Fotos shopee/qubranozesbranco.png",
-        "Fotos shopee/quebranozesverde.png"
-    ];
-
-    let imagemAtualQuebraNozes = 0;
-    let opcaoQuebraNozes = 0;
-
-    const precosQuebraNozes = [
-        "R$ 24,90",
-        "R$ 44,90",
-        "R$ 59,90"
-    ];
-
-    const nomesQuebraNozes = [
-        "1 unidade",
-        "Kit com 2",
-        "Kit com 3"
-    ];
-
-
-    /* =====================================================
-       PORTA GUARDANAPOS
-    ===================================================== */
-
-    const imagensPorta = [
-        "Fotos shopee/capaportanatal.png",
-        "Fotos shopee/portarenachat.png",
-        "Fotos shopee/portapresentechat.png",
-        "Fotos shopee/portapapai.png",
-        "Fotos shopee/portarena.png",
-        "Fotos shopee/portatodos.png",
-        "Fotos shopee/baseporta.png"
-    ];
-
-    let imagemAtualPorta = 0;
-    let opcaoPorta = 0;
-
-    const precosPorta = [
-        "R$ 12,90",
-        "R$ 44,90",
-        "R$ 12,90",
-        "R$ 44,90",
-        "R$ 14,90",
-        "R$ 49,90",
-        "R$ 34,90"
-    ];
-
-    const nomesPorta = [
-        "Papai Noel — 1 unidade",
-        "Papai Noel — Kit com 4",
-        "Presente — 1 unidade",
-        "Presente — Kit com 4",
-        "Rena — 1 unidade",
-        "Rena — Kit com 4",
-        "Kit Natalino — 1 Papai Noel + 1 Presente + 1 Rena"
-    ];
-
-
-    /* =====================================================
-       MINIATURA DE ÁRVORE
-    ===================================================== */
-
-    const imagensArvore = [
-        "Fotos shopee/capaarvore.png",
-        "Fotos shopee/arvorebege.png",
-        "Fotos shopee/arvoremarrom.png"
-    ];
-
-    let imagemAtualArvore = 0;
-    let opcaoArvore = 0;
-
-    const precosArvore = [
-        "R$ 19,90",
-        "R$ 41,90"
-    ];
-
-    const nomesArvore = [
-        "1 unidade",
-        "Kit com 3"
-    ];
-
-
-    /* =====================================================
-       FUNÇÃO PARA MUDAR IMAGENS
-    ===================================================== */
-
-    function mudarImagem(tipo, direcao) {
-
-        let imagens;
-        let atual;
-        let idImagem;
-        let idIndicadores;
-
-
-        if (tipo === "Rena") {
-
-            imagens = imagensRena;
-
-            imagemAtualRena += direcao;
-
-            if (imagemAtualRena < 0) {
-                imagemAtualRena = imagens.length - 1;
-            }
-
-            if (imagemAtualRena >= imagens.length) {
-                imagemAtualRena = 0;
-            }
-
-            atual = imagemAtualRena;
-            idImagem = "imagemRena";
-            idIndicadores = "indicadoresRena";
-        }
-
-
-        if (tipo === "Guardanapo") {
-
-            imagens = imagensGuardanapo;
-
-            imagemAtualGuardanapo += direcao;
-
-            if (imagemAtualGuardanapo < 0) {
-                imagemAtualGuardanapo = imagens.length - 1;
-            }
-
-            if (imagemAtualGuardanapo >= imagens.length) {
-                imagemAtualGuardanapo = 0;
-            }
-
-            atual = imagemAtualGuardanapo;
-            idImagem = "imagemGuardanapo";
-            idIndicadores = "indicadoresGuardanapo";
-        }
-
-
-        if (tipo === "QuebraNozes") {
-
-            imagens = imagensQuebraNozes;
-
-            imagemAtualQuebraNozes += direcao;
-
-            if (imagemAtualQuebraNozes < 0) {
-                imagemAtualQuebraNozes = imagens.length - 1;
-            }
-
-            if (imagemAtualQuebraNozes >= imagens.length) {
-                imagemAtualQuebraNozes = 0;
-            }
-
-            atual = imagemAtualQuebraNozes;
-            idImagem = "imagemQuebraNozes";
-            idIndicadores = "indicadoresQuebraNozes";
-        }
-
-
-        if (tipo === "Porta") {
-
-            imagens = imagensPorta;
-
-            imagemAtualPorta += direcao;
-
-            if (imagemAtualPorta < 0) {
-                imagemAtualPorta = imagens.length - 1;
-            }
-
-            if (imagemAtualPorta >= imagens.length) {
-                imagemAtualPorta = 0;
-            }
-
-            atual = imagemAtualPorta;
-            idImagem = "imagemPorta";
-            idIndicadores = "indicadoresPorta";
-        }
-
-
-        if (tipo === "Arvore") {
-
-            imagens = imagensArvore;
-
-            imagemAtualArvore += direcao;
-
-            if (imagemAtualArvore < 0) {
-                imagemAtualArvore = imagens.length - 1;
-            }
-
-            if (imagemAtualArvore >= imagens.length) {
-                imagemAtualArvore = 0;
-            }
-
-            atual = imagemAtualArvore;
-            idImagem = "imagemArvore";
-            idIndicadores = "indicadoresArvore";
-        }
-
-
-        document.getElementById(idImagem).src =
-            imagens[atual];
-
-
-        atualizarIndicadores(
-            idIndicadores,
-            atual
-        );
-
+// =============================================
+// CONFIGURAÇÕES
+// =============================================
+
+const telefone = "5511984458652";
+const pastaFotos = "Fotos shopee/";
+
+function moeda(valor) {
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+}
+
+function linkWhatsApp(mensagem) {
+    return "https://wa.me/" + telefone +
+        "?text=" + encodeURIComponent(mensagem);
+}
+
+// =============================================
+// PRODUTOS JÁ EXISTENTES
+// =============================================
+
+const produtos = [
+    {
+        id: "rena",
+        nome: "Rena Natalina",
+        descricao:
+            "Uma peça delicada para trazer o clima natalino " +
+            "à sua decoração. Disponível em diferentes cores " +
+            "para combinar com seu ambiente.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Altura", "13,48 cm"],
+            ["Cores", "Diversas opções"]
+        ],
+        imagens: [
+            "4renas.png",
+            "renavermelha.png",
+            "renaverde.png",
+            "renabege.png",
+            "renabranca.png"
+        ],
+        opcoes: [
+            ["1 unidade", 14.90],
+            ["Kit com 2", 27.90],
+            ["Kit com 3", 39.90]
+        ]
+    },
+    {
+        id: "guardanapo",
+        nome: "Porta Guardanapos Natalino",
+        descricao:
+            "Um detalhe especial para deixar sua mesa " +
+            "ainda mais bonita neste Natal. Disponível " +
+            "em diferentes cores.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Altura", "10 cm"],
+            ["Cores", "Diversas opções"]
+        ],
+        imagens: [
+            "guardanapocompapel.png",
+            "guardanapovermelho.png",
+            "guardanapoverde.png",
+            "guardanapobranco.png"
+        ],
+        opcoes: [
+            ["1 unidade", 12.90],
+            ["Kit com 2", 22.90]
+        ]
+    },
+    {
+        id: "quebranozes",
+        nome: "Boneco Quebra-Nozes",
+        descricao:
+            "Um clássico que não pode faltar na decoração " +
+            "de Natal. Uma peça tradicional e elegante " +
+            "para deixar seu ambiente ainda mais especial.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Altura", "20 cm"],
+            ["Cores", "Diversas opções"]
+        ],
+        imagens: [
+            "quebravermelho.png",
+            "qubranozesbranco.png",
+            "quebranozesverde.png"
+        ],
+        opcoes: [
+            ["1 unidade", 24.90],
+            ["Kit com 2", 44.90],
+            ["Kit com 3", 59.90]
+        ]
+    },
+    {
+        id: "porta",
+        nome: "Porta Guardanapos",
+        descricao:
+            "Prendedores estilizados para segurar os " +
+            "guardanapos, deixando sua mesa mais bonita, " +
+            "organizada e com um toque especial de Natal.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Modelos", "3 opções"],
+            ["Estilo", "Natalino"]
+        ],
+        imagens: [
+            "capaportanatal.png",
+            "portarenachat.png",
+            "portapresentechat.png",
+            "portapapai.png",
+            "portarena.png",
+            "portatodos.png",
+            "baseporta.png"
+        ],
+        opcoes: [
+            ["Papai Noel — 1 unidade", 12.90],
+            ["Papai Noel — Kit com 4", 44.90],
+            ["Presente — 1 unidade", 12.90],
+            ["Presente — Kit com 4", 44.90],
+            ["Rena — 1 unidade", 14.90],
+            ["Rena — Kit com 4", 49.90],
+            ["Kit Natalino — 1 de cada", 34.90]
+        ]
+    },
+    {
+        id: "arvore",
+        nome: "Miniatura de árvore",
+        descricao:
+            "Uma delicada miniatura de árvore de Natal " +
+            "para deixar sua decoração ainda mais charmosa. " +
+            "Uma peça especial para qualquer cantinho.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Altura", "15 cm"],
+            ["Cores", "Diversas opções"]
+        ],
+        imagens: [
+            "capaarvore.png",
+            "arvorebege.png",
+            "arvoremarrom.png"
+        ],
+        opcoes: [
+            ["1 unidade", 19.90],
+            ["Kit com 3", 41.90]
+        ]
+    }
+];
+
+// =============================================
+// NOVOS KITS NATALINOS
+// NOMES REAIS DAS IMAGENS
+// =============================================
+
+const kits = [
+    {
+        numero: 3,
+        nome: "Natal Decorativo",
+        preco: 35.90,
+        foto: "Presépio Natalino com Feliz Natal.png",
+        pecas: [
+            "Feliz Natal",
+            "Papai Noel",
+            "Árvore Tricô"
+        ],
+        base: false,
+        aviso:
+            "A base aparece na foto, mas não está " +
+            "incluída neste kit."
+    },
+    {
+        numero: 2,
+        nome: "Árvore de Natal",
+        preco: 39.90,
+        foto: "Feliz Natal em Ouro e Verde.png",
+        pecas: [
+            "Feliz Natal",
+            "Árvore Tricô",
+            "Base"
+        ],
+        base: true
+    },
+    {
+        numero: 1,
+        nome: "Natal Completo",
+        preco: 54.90,
+        foto: "Trio Natalino em Crochê no Inverno.png",
+        pecas: [
+            "Boneco de Neve",
+            "Rena",
+            "Papai Noel",
+            "Base"
+        ],
+        base: true
+    },
+    {
+        numero: 5,
+        nome: "Natal Encantado",
+        preco: 64.90,
+        foto: "Presépio natalino de crochê aconchegante.png",
+        pecas: [
+            "Árvore Tricô",
+            "Papai Noel",
+            "Rena",
+            "Boneco de Neve",
+            "Base"
+        ],
+        base: true
+    },
+    {
+        numero: 4,
+        nome: "Natal Especial",
+        preco: 74.90,
+        foto: "Presépio Natalino em Estilo Tricotado.png",
+        pecas: [
+            "Boneco de Neve",
+            "Rena",
+            "Papai Noel",
+            "Árvore Tricô",
+            "Feliz Natal",
+            "Base"
+        ],
+        base: true
+    }
+];
+
+// =============================================
+// CRIAR ANÚNCIOS DOS PRODUTOS ANTIGOS
+// =============================================
+
+function criarProduto(produto) {
+    const artigo = document.createElement("article");
+    artigo.className = "produto";
+
+    let imagemAtual = 0;
+    let opcaoAtual = 0;
+
+    artigo.innerHTML = `
+        <div class="carrossel">
+            <img
+                class="foto-produto"
+                src="${pastaFotos + produto.imagens[0]}"
+                alt="${produto.nome}"
+                loading="lazy"
+            >
+
+            <button
+                class="seta seta-esquerda"
+                type="button"
+                aria-label="Foto anterior"
+            >‹</button>
+
+            <button
+                class="seta seta-direita"
+                type="button"
+                aria-label="Próxima foto"
+            >›</button>
+
+            <div class="indicadores"></div>
+        </div>
+
+        <div class="produto-info">
+            <h4>${produto.nome}</h4>
+
+            <p class="produto-descricao">
+                ${produto.descricao}
+            </p>
+
+            <div class="detalhes">
+                ${produto.detalhes.map(d => `
+                    <div class="detalhe">
+                        <strong>${d[0]}</strong>
+                        ${d[1]}
+                    </div>
+                `).join("")}
+            </div>
+
+            <div class="preco">
+                ${moeda(produto.opcoes[0][1])}
+            </div>
+
+            <div class="titulo-opcoes">
+                Escolha sua opção:
+            </div>
+
+            <div class="opcoes">
+                ${produto.opcoes.map((opcao, indice) => `
+                    <button
+                        type="button"
+                        class="opcao ${indice === 0 ? "ativo" : ""}"
+                        data-indice="${indice}"
+                        aria-pressed="${indice === 0}"
+                    >
+                        <span class="opcao-esquerda">
+                            <span class="radio"></span>
+                            ${opcao[0]}
+                        </span>
+
+                        <span class="opcao-preco">
+                            ${moeda(opcao[1])}
+                        </span>
+                    </button>
+                `).join("")}
+            </div>
+
+            <a
+                class="botao-interesse"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Tenho interesse
+            </a>
+        </div>
+    `;
+
+    const imagem = artigo.querySelector(".foto-produto");
+    const indicadores = artigo.querySelector(".indicadores");
+    const preco = artigo.querySelector(".preco");
+    const botao = artigo.querySelector(".botao-interesse");
+
+    function atualizarImagem() {
+        imagem.src =
+            pastaFotos + produto.imagens[imagemAtual];
+
+        indicadores.innerHTML =
+            produto.imagens.map((_, indice) => `
+                <span class="indicador
+                    ${indice === imagemAtual ? "ativo" : ""}">
+                </span>
+            `).join("");
     }
 
+    artigo.querySelector(".seta-esquerda")
+        .addEventListener("click", () => {
+            imagemAtual =
+                (imagemAtual - 1 + produto.imagens.length)
+                % produto.imagens.length;
 
-    /* =====================================================
-       INDICADORES
-    ===================================================== */
+            atualizarImagem();
+        });
 
-    function criarIndicadores(id, quantidade) {
+    artigo.querySelector(".seta-direita")
+        .addEventListener("click", () => {
+            imagemAtual =
+                (imagemAtual + 1)
+                % produto.imagens.length;
 
-        const container =
-            document.getElementById(id);
+            atualizarImagem();
+        });
 
-        container.innerHTML = "";
+    function atualizarOpcao() {
+        const opcao = produto.opcoes[opcaoAtual];
 
-        for (let i = 0; i < quantidade; i++) {
+        preco.textContent = moeda(opcao[1]);
 
-            const indicador =
-                document.createElement("span");
+        artigo.querySelectorAll(".opcao")
+            .forEach((elemento, indice) => {
+                const ativo = indice === opcaoAtual;
 
-            indicador.classList.add("indicador");
-
-            if (i === 0) {
-                indicador.classList.add("ativo");
-            }
-
-            container.appendChild(indicador);
-
-        }
-
-    }
-
-
-    function atualizarIndicadores(id, atual) {
-
-        const indicadores =
-            document.querySelectorAll(
-                "#" + id + " .indicador"
-            );
-
-        indicadores.forEach(
-            function(indicador, indice) {
-
-                indicador.classList.toggle(
-                    "ativo",
-                    indice === atual
+                elemento.classList.toggle("ativo", ativo);
+                elemento.setAttribute(
+                    "aria-pressed",
+                    String(ativo)
                 );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       RENA
-    ===================================================== */
-
-    function selecionarRena(indice) {
-
-        opcaoRena = indice;
-
-        document.getElementById("precoRena")
-            .textContent =
-            precosRena[indice];
-
-        for (let i = 0; i < 3; i++) {
-
-            document
-                .getElementById(
-                    "renaOpcao" + i
-                )
-                .classList.toggle(
-                    "ativo",
-                    i === indice
-                );
-
-        }
-
-        atualizarBotaoRena();
-
-    }
-
-
-    function atualizarBotaoRena() {
+            });
 
         const mensagem =
-            "Olá! Tenho interesse na Rena Natalina - " +
-            nomesRena[opcaoRena] +
-            " - " +
-            precosRena[opcaoRena] +
-            ".";
+            `Olá! Tenho interesse em ${produto.nome} - ` +
+            `${opcao[0]} - ${moeda(opcao[1])}. ` +
+            `Gostaria de saber sobre disponibilidade e prazo.`;
 
-        document.getElementById(
-            "botaoRena"
-        ).href =
-            "https://wa.me/" +
-            telefone +
-            "?text=" +
-            encodeURIComponent(mensagem);
-
+        botao.href = linkWhatsApp(mensagem);
     }
 
+    artigo.querySelectorAll(".opcao")
+        .forEach(elemento => {
+            elemento.addEventListener("click", () => {
+                opcaoAtual =
+                    Number(elemento.dataset.indice);
+
+                atualizarOpcao();
+            });
+        });
+
+    atualizarImagem();
+    atualizarOpcao();
+
+    return artigo;
+}
+
+// =============================================
+// CRIAR ANÚNCIOS DOS CINCO KITS
+// =============================================
+
+function criarKit(kit) {
+    const artigo = document.createElement("article");
+    artigo.className = "produto";
+
+    const nomeCompleto =
+        `Kit ${kit.numero} — ${kit.nome}`;
+
+    const composicao = kit.pecas.join(" + ");
+
+    const mensagem =
+        `Olá! Tenho interesse no ${nomeCompleto}, ` +
+        `composto por ${composicao}, ` +
+        `no valor de ${moeda(kit.preco)}. ` +
+        `Gostaria de saber sobre disponibilidade e prazo.`;
+
+    artigo.innerHTML = `
+        <img
+            class="kit-foto"
+            src="${pastaFotos + kit.foto}"
+            alt="${nomeCompleto}"
+            loading="lazy"
+        >
+
+        <div class="produto-info">
+
+            <p class="kit-ordem">
+                Kit natalino · ${kit.pecas.length} peças
+            </p>
+
+            <h4>${nomeCompleto}</h4>
+
+            <p class="produto-descricao">
+                Uma combinação especial de peças
+                decorativas impressas em 3D para
+                deixar seu Natal ainda mais encantador.
+            </p>
+
+            <div class="detalhes">
+                <div class="detalhe">
+                    <strong>Material</strong>
+                    PLA
+                </div>
+
+                <div class="detalhe">
+                    <strong>Peças</strong>
+                    ${kit.pecas.length}
+                </div>
+
+                <div class="detalhe">
+                    <strong>Base</strong>
+                    ${kit.base ? "Inclusa" : "Não inclusa"}
+                </div>
+            </div>
+
+            <p class="kit-composicao">
+                <strong>O kit inclui:</strong>
+                ${composicao}
+            </p>
+
+            ${kit.aviso ? `
+                <p class="kit-aviso">
+                    ${kit.aviso}
+                </p>
+            ` : ""}
+
+            <div class="preco">
+                ${moeda(kit.preco)}
+            </div>
+
+            <a
+                class="botao-interesse"
+                href="${linkWhatsApp(mensagem)}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Tenho interesse
+            </a>
+
+        </div>
+    `;
+
+    return artigo;
+}
 
-    /* =====================================================
-       PORTA GUARDANAPOS NATALINO
-    ===================================================== */
+// =============================================
+// EXIBIR PRODUTOS E KITS EM ORDEM DE PREÇO
+// =============================================
 
-    function selecionarGuardanapo(indice) {
+// Produtos antigos: menor preço inicial primeiro.
 
-        opcaoGuardanapo = indice;
+const produtosOrdenados = [...produtos].sort(
+    (a, b) => a.opcoes[0][1] - b.opcoes[0][1]
+);
 
-        document.getElementById(
-            "precoGuardanapo"
-        ).textContent =
-            precosGuardanapo[indice];
+const areaProdutos =
+    document.getElementById("produtosAntigos");
 
-        for (let i = 0; i < 2; i++) {
+produtosOrdenados.forEach(produto => {
+    areaProdutos.appendChild(criarProduto(produto));
+});
 
-            document
-                .getElementById(
-                    "guardanapoOpcao" + i
-                )
-                .classList.toggle(
-                    "ativo",
-                    i === indice
-                );
+// Kits novos: menor preço primeiro.
 
-        }
+const kitsOrdenados = [...kits].sort(
+    (a, b) => a.preco - b.preco
+);
 
-        atualizarBotaoGuardanapo();
+const areaKits =
+    document.getElementById("kitsNatalinos");
 
-    }
-
-
-    function atualizarBotaoGuardanapo() {
-
-        const mensagem =
-            "Olá! Tenho interesse no Porta Guardanapos Natalino - " +
-            nomesGuardanapo[opcaoGuardanapo] +
-            " - " +
-            precosGuardanapo[opcaoGuardanapo] +
-            ".";
-
-        document.getElementById(
-            "botaoGuardanapo"
-        ).href =
-            "https://wa.me/" +
-            telefone +
-            "?text=" +
-            encodeURIComponent(mensagem);
-
-    }
-
-
-    /* =====================================================
-       QUEBRA-NOZES
-    ===================================================== */
-
-    function selecionarQuebraNozes(indice) {
-
-        opcaoQuebraNozes = indice;
-
-        document.getElementById(
-            "precoQuebraNozes"
-        ).textContent =
-            precosQuebraNozes[indice];
-
-        for (let i = 0; i < 3; i++) {
-
-            document
-                .getElementById(
-                    "quebraNozesOpcao" + i
-                )
-                .classList.toggle(
-                    "ativo",
-                    i === indice
-                );
-
-        }
-
-        atualizarBotaoQuebraNozes();
-
-    }
-
-
-    function atualizarBotaoQuebraNozes() {
-
-        const mensagem =
-            "Olá! Tenho interesse no Boneco Quebra-Nozes - " +
-            nomesQuebraNozes[opcaoQuebraNozes] +
-            " - " +
-            precosQuebraNozes[opcaoQuebraNozes] +
-            ".";
-
-        document.getElementById(
-            "botaoQuebraNozes"
-        ).href =
-            "https://wa.me/" +
-            telefone +
-            "?text=" +
-            encodeURIComponent(mensagem);
-
-    }
-
-
-    /* =====================================================
-       PORTA GUARDANAPOS
-    ===================================================== */
-
-    function selecionarPorta(indice) {
-
-        opcaoPorta = indice;
-
-        document.getElementById(
-            "precoPorta"
-        ).textContent =
-            precosPorta[indice];
-
-        for (let i = 0; i < 7; i++) {
-
-            document
-                .getElementById(
-                    "portaOpcao" + i
-                )
-                .classList.toggle(
-                    "ativo",
-                    i === indice
-                );
-
-        }
-
-        atualizarBotaoPorta();
-
-    }
-
-
-    function atualizarBotaoPorta() {
-
-        const mensagem =
-            "Olá! Tenho interesse no Porta Guardanapos - " +
-            nomesPorta[opcaoPorta] +
-            " - " +
-            precosPorta[opcaoPorta] +
-            ".";
-
-        document.getElementById(
-            "botaoPorta"
-        ).href =
-            "https://wa.me/" +
-            telefone +
-            "?text=" +
-            encodeURIComponent(mensagem);
-
-    }
-
-
-    /* =====================================================
-       MINIATURA DE ÁRVORE
-    ===================================================== */
-
-    function selecionarArvore(indice) {
-
-        opcaoArvore = indice;
-
-        document.getElementById(
-            "precoArvore"
-        ).textContent =
-            precosArvore[indice];
-
-        for (let i = 0; i < 2; i++) {
-
-            document
-                .getElementById(
-                    "arvoreOpcao" + i
-                )
-                .classList.toggle(
-                    "ativo",
-                    i === indice
-                );
-
-        }
-
-        atualizarBotaoArvore();
-
-    }
-
-
-    function atualizarBotaoArvore() {
-
-        const mensagem =
-            "Olá! Tenho interesse na Miniatura de árvore - " +
-            nomesArvore[opcaoArvore] +
-            " - " +
-            precosArvore[opcaoArvore] +
-            ".";
-
-        document.getElementById(
-            "botaoArvore"
-        ).href =
-            "https://wa.me/" +
-            telefone +
-            "?text=" +
-            encodeURIComponent(mensagem);
-
-    }
-
-
-    /* =====================================================
-       INICIALIZAÇÃO
-    ===================================================== */
-
-    criarIndicadores(
-        "indicadoresRena",
-        imagensRena.length
-    );
-
-
-    criarIndicadores(
-        "indicadoresGuardanapo",
-        imagensGuardanapo.length
-    );
-
-
-    criarIndicadores(
-        "indicadoresQuebraNozes",
-        imagensQuebraNozes.length
-    );
-
-
-    criarIndicadores(
-        "indicadoresPorta",
-        imagensPorta.length
-    );
-
-
-    criarIndicadores(
-        "indicadoresArvore",
-        imagensArvore.length
-    );
-
-
-    atualizarBotaoRena();
-
-    atualizarBotaoGuardanapo();
-
-    atualizarBotaoQuebraNozes();
-
-    atualizarBotaoPorta();
-
-    atualizarBotaoArvore();
+kitsOrdenados.forEach(kit => {
+    areaKits.appendChild(criarKit(kit));
+});
 
 </script>
 
-
 </body>
-
 </html>
