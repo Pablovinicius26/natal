@@ -170,20 +170,11 @@ main {
     border: 1px solid #eee;
 }
 
-.carrossel img,
-.kit-foto {
+.carrossel img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: block;
-}
-
-.kit-foto {
-    aspect-ratio: 1 / .85;
-    height: auto;
-    border-radius: 14px;
-    border: 1px solid #eee;
-    background: #faf8f3;
 }
 
 .seta {
@@ -194,7 +185,7 @@ main {
     height: 34px;
     border: none;
     border-radius: 50%;
-    background: rgba(255,255,255,.94);
+    background: rgba(255, 255, 255, .94);
     color: var(--vermelho);
     font-size: 22px;
     font-weight: bold;
@@ -202,7 +193,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 7px rgba(0,0,0,.14);
+    box-shadow: 0 2px 7px rgba(0, 0, 0, .14);
     z-index: 2;
 }
 
@@ -232,8 +223,8 @@ main {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: rgba(255,255,255,.85);
-    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    background: rgba(255, 255, 255, .85);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
 }
 
 .indicador.ativo {
@@ -393,6 +384,16 @@ main {
     margin-top: 8px;
 }
 
+.kit-foto {
+    width: 100%;
+    aspect-ratio: 1 / .85;
+    object-fit: contain;
+    border-radius: 14px;
+    display: block;
+    background: #faf8f3;
+    border: 1px solid #eee;
+}
+
 .kit-ordem {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
@@ -484,6 +485,7 @@ footer strong {
 </header>
 
 <main>
+
     <section class="apresentacao">
         <div class="pequeno-titulo">
             Especial de Natal
@@ -529,6 +531,7 @@ footer strong {
 
         <div class="produtos" id="kitsNatalinos"></div>
     </section>
+
 </main>
 
 <footer>
@@ -716,27 +719,8 @@ const produtos = [
     },
 
     // =========================================
-    // NOVOS PRODUTOS MANTIDOS
+    // NOVOS PRODUTOS INDIVIDUAIS
     // =========================================
-
-    {
-        id: "sagrada-familia-nova",
-        nome: "Sagrada Família Minimalista",
-        descricao:
-            "Representação delicada da Sagrada Família " +
-            "para sua decoração de Natal. Peça impressa " +
-            "em PLA, com visual minimalista.",
-        detalhes: [
-            ["Material", "PLA"],
-            ["Estilo", "Minimalista"]
-        ],
-        imagens: [
-            "Presépio e Árvore Natalina Dourada.png"
-        ],
-        opcoes: [
-            ["1 conjunto", 29.90]
-        ]
-    },
 
     {
         id: "mao-grinch-porta",
@@ -863,7 +847,7 @@ const kits = [
     },
 
     // =========================================
-    // NOVOS KITS MANTIDOS
+    // NOVOS KITS NATALINOS
     // =========================================
 
     {
@@ -932,6 +916,7 @@ function criarProduto(produto) {
 
     artigo.innerHTML = `
         <div class="carrossel">
+
             <img
                 class="foto-produto"
                 src="${pastaFotos + produto.imagens[0]}"
@@ -952,6 +937,7 @@ function criarProduto(produto) {
             >›</button>
 
             <div class="indicadores"></div>
+
         </div>
 
         <div class="produto-info">
@@ -987,6 +973,7 @@ function criarProduto(produto) {
                         data-indice="${indice}"
                         aria-pressed="${indice === 0}"
                     >
+
                         <span class="opcao-esquerda">
                             <span class="radio"></span>
                             ${opcao[0]}
@@ -995,6 +982,7 @@ function criarProduto(produto) {
                         <span class="opcao-preco">
                             ${moeda(opcao[1])}
                         </span>
+
                     </button>
                 `).join("")}
             </div>
@@ -1044,6 +1032,7 @@ function criarProduto(produto) {
                     ${indice === imagemAtual ? "ativo" : ""}">
                 </span>
             `).join("");
+
     }
 
     setaEsquerda.addEventListener("click", () => {
@@ -1053,6 +1042,7 @@ function criarProduto(produto) {
             % produto.imagens.length;
 
         atualizarImagem();
+
     });
 
     setaDireita.addEventListener("click", () => {
@@ -1062,6 +1052,7 @@ function criarProduto(produto) {
             % produto.imagens.length;
 
         atualizarImagem();
+
     });
 
     function atualizarOpcao() {
@@ -1075,15 +1066,13 @@ function criarProduto(produto) {
 
                 const ativo = indice === opcaoAtual;
 
-                elemento.classList.toggle(
-                    "ativo",
-                    ativo
-                );
+                elemento.classList.toggle("ativo", ativo);
 
                 elemento.setAttribute(
                     "aria-pressed",
                     String(ativo)
                 );
+
             });
 
         const mensagem =
@@ -1092,6 +1081,7 @@ function criarProduto(produto) {
             `Gostaria de saber sobre disponibilidade e prazo.`;
 
         botao.href = linkWhatsApp(mensagem);
+
     }
 
     artigo.querySelectorAll(".opcao")
@@ -1103,13 +1093,16 @@ function criarProduto(produto) {
                     Number(elemento.dataset.indice);
 
                 atualizarOpcao();
+
             });
+
         });
 
     atualizarImagem();
     atualizarOpcao();
 
     return artigo;
+
 }
 
 // =============================================
@@ -1124,8 +1117,7 @@ function criarKit(kit) {
     const nomeCompleto =
         `Kit ${kit.numero} — ${kit.nome}`;
 
-    const composicao =
-        kit.pecas.join(" + ");
+    const composicao = kit.pecas.join(" + ");
 
     const temOpcoes =
         Array.isArray(kit.opcoes) &&
@@ -1158,6 +1150,7 @@ function criarKit(kit) {
             </p>
 
             <div class="detalhes">
+
                 <div class="detalhe">
                     <strong>Material</strong>
                     PLA
@@ -1176,6 +1169,7 @@ function criarKit(kit) {
                             ? "Inclusa"
                             : "Não inclusa"}
                 </div>
+
             </div>
 
             <p class="kit-composicao">
@@ -1203,6 +1197,7 @@ function criarKit(kit) {
                 </div>
 
                 <div class="opcoes">
+
                     ${kit.opcoes.map((opcao, indice) => `
                         <button
                             type="button"
@@ -1210,6 +1205,7 @@ function criarKit(kit) {
                             data-indice="${indice}"
                             aria-pressed="${indice === 0}"
                         >
+
                             <span class="opcao-esquerda">
                                 <span class="radio"></span>
                                 ${opcao[0]}
@@ -1218,8 +1214,10 @@ function criarKit(kit) {
                             <span class="opcao-preco">
                                 ${moeda(opcao[1])}
                             </span>
+
                         </button>
                     `).join("")}
+
                 </div>
             ` : ""}
 
@@ -1234,19 +1232,15 @@ function criarKit(kit) {
         </div>
     `;
 
-    const preco =
-        artigo.querySelector(".preco");
-
-    const botao =
-        artigo.querySelector(".botao-interesse");
+    const preco = artigo.querySelector(".preco");
+    const botao = artigo.querySelector(".botao-interesse");
 
     function atualizarKit() {
 
         const opcao =
             temOpcoes ? kit.opcoes[opcaoAtual] : null;
 
-        const valor =
-            opcao ? opcao[1] : kit.preco;
+        const valor = opcao ? opcao[1] : kit.preco;
 
         preco.textContent = moeda(valor);
 
@@ -1255,8 +1249,7 @@ function criarKit(kit) {
             artigo.querySelectorAll(".opcao")
                 .forEach((elemento, indice) => {
 
-                    const ativo =
-                        indice === opcaoAtual;
+                    const ativo = indice === opcaoAtual;
 
                     elemento.classList.toggle(
                         "ativo",
@@ -1267,7 +1260,9 @@ function criarKit(kit) {
                         "aria-pressed",
                         String(ativo)
                     );
+
                 });
+
         }
 
         const complemento =
@@ -1286,6 +1281,7 @@ function criarKit(kit) {
             `Gostaria de saber sobre disponibilidade e prazo.`;
 
         botao.href = linkWhatsApp(mensagem);
+
     }
 
     if (temOpcoes) {
@@ -1299,13 +1295,17 @@ function criarKit(kit) {
                         Number(elemento.dataset.indice);
 
                     atualizarKit();
+
                 });
+
             });
+
     }
 
     atualizarKit();
 
     return artigo;
+
 }
 
 // =============================================
@@ -1338,6 +1338,7 @@ const kitsOrdenados = [...kits].sort((a, b) => {
         : b.preco;
 
     return precoA - precoB;
+
 });
 
 const areaKits =
