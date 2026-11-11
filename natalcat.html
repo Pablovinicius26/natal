@@ -764,6 +764,91 @@ const produtos = [
             ["9 unidades", 83.90],
             ["10 unidades", 89.90]
         ]
+    },
+
+    // =========================================
+    // NOVOS PRODUTOS NATALINOS
+    // =========================================
+
+    {
+        id: "hohoho-natalino",
+        nome: "HOHOHO Natalino",
+        descricao:
+            "Enfeite decorativo com a expressão HOHOHO " +
+            "em vermelho, ideal para decorar mesas, " +
+            "estantes e ambientes neste Natal.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Cor", "Vermelho"],
+            ["Uso", "Decoração"]
+        ],
+        imagens: [
+            "HOHOHO Vermelho na Decoração Natalina.png"
+        ],
+        opcoes: [
+            ["1 unidade", 21.90]
+        ]
+    },
+
+    {
+        id: "calendario-natalino",
+        nome: "Calendário Natalino",
+        descricao:
+            "Contagem dos dias até o Natal, com base " +
+            "branca numerada de 1 a 24, estrela " +
+            "dourada e árvore verde.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Contagem", "1 a 24"],
+            ["Uso", "Decoração"]
+        ],
+        imagens: [
+            "Calendário natalino em relevo verde.png"
+        ],
+        opcoes: [
+            ["1 unidade", 29.90]
+        ]
+    },
+
+    {
+        id: "porta-canetas-papai-noel",
+        nome: "Porta-Canetas Natalino Papai Noel",
+        descricao:
+            "Porta-canetas decorativo com visual da roupa " +
+            "do Papai Noel, detalhes em vermelho, preto, " +
+            "branco e dourado.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Cores", "Natalinas"],
+            ["Uso", "Porta-canetas"]
+        ],
+        imagens: [
+            "Porta-Canetas Natalino em 3D.png"
+        ],
+        opcoes: [
+            ["1 unidade", 49.90]
+        ]
+    },
+
+    {
+        id: "grinch-natalino",
+        nome: "Grinch Natalino 10 CM",
+        descricao:
+            "Bonequinho natalino verde sentado, com " +
+            "gorro vermelho e branco, segurando um " +
+            "enfeite vermelho. Ideal para decoração " +
+            "ou presente.",
+        detalhes: [
+            ["Material", "PLA"],
+            ["Estilo", "Natalino"],
+            ["Uso", "Decoração"]
+        ],
+        imagens: [
+            "Grinch Natalino JLP 3D.jpeg"
+        ],
+        opcoes: [
+            ["1 unidade", 56.90]
+        ]
     }
 ];
 
@@ -1265,6 +1350,8 @@ function criarKit(kit) {
 // EXIBIR PRODUTOS E KITS
 // =============================================
 
+// Produtos individuais em ordem crescente de preço.
+
 const produtosOrdenados = [...produtos].sort(
     (a, b) => a.opcoes[0][1] - b.opcoes[0][1]
 );
@@ -1276,17 +1363,11 @@ produtosOrdenados.forEach(produto => {
     areaProdutos.appendChild(criarProduto(produto));
 });
 
-const kitsOrdenados = [...kits].sort((a, b) => {
-    const precoA = a.opcoes
-        ? Math.min(...a.opcoes.map(o => o[1]))
-        : a.preco;
+// Kits em ordem numérica: 1, 2, 3 ... 8.
 
-    const precoB = b.opcoes
-        ? Math.min(...b.opcoes.map(o => o[1]))
-        : b.preco;
-
-    return precoA - precoB;
-});
+const kitsOrdenados = [...kits].sort(
+    (a, b) => a.numero - b.numero
+);
 
 const areaKits =
     document.getElementById("kitsNatalinos");
